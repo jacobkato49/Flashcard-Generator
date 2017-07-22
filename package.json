@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jacobkato49/Flashcard-Generator/issues"
   },
-  "homepage": "https://github.com/jacobkato49/Flashcard-Generator#readme"
+  "homepage": "https://github.com/jacobkato49/Flashcard-Generator#readme",
+  "dependencies": {
+    "inquirer": "^3.2.0"
+  }
 }
