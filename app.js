@@ -61,6 +61,12 @@ function lookAtMenu(){
         console.log("Good luck with your test :)");
         messageWait = setTimeout(byeBye, 1000);
         break;
+
+      //Create a default if the user does not follow the directions
+      default:
+        console.log("............");
+        console.log("Sorry I don't understand");
+        console.log("\nPlease follow the directions.");
     }
   });
 }
