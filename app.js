@@ -1,9 +1,12 @@
+//Ask Charlie or Tyler if I could change "var" to "const"
 var inquirer = require("inquirer");
 var colors = require("colors");
 var FlashCard = require("./basic");
 var ClozeCard = require("./cloze");
 var fs = require("fs");
+
 //maybe put in a json to store the flashcards
+var library = require("./cardStorage.json");
 
 
 //Create open variables to be manipulated later in the functions
@@ -73,3 +76,60 @@ function lookAtMenu(){
 
 //call the function so you can intiate the switch statement
 lookAtMenu();
+
+
+function newCard (){
+  inquirer.prompt([
+    //Grabbed these things from the inquirer documentation on the npm website
+    {
+      type: "list",
+      message: "Which flashcard will you create?",
+      choices: ["Basic", "Cloze"],
+      name: "cardType"
+    }
+
+  //now do the promise distinguishing which type of card
+  ]).then(function(flashData){
+
+    var cardType = flashData.cardType;
+    //check with console.log
+    console.log(flashData);
+
+
+    //if the user chooses the basic card
+    if(cardType === "Basic"){
+      inquirer.prompt([
+        {
+          type: "input",
+          message: "Fill the out the front of the card (Your Study Question),",
+          name: "frontCard"
+        },
+
+        {
+          type: "input",
+          message: "Fill the out the back of the card (Answer),",
+          name: "backCard"
+        }
+
+      ]).then(function (basicCardData){
+
+        //make a object to store the info of the front and back of the card
+        var userCard = {
+          type: "Basic",
+          front: basicCardData.frontCard,
+          back: basicCardData.backCard
+          //maybe shorten the paremeters and names passing in
+        };
+
+        //push the cards the user creates into an array
+        library.push(userCard);
+
+        //now write the user created cards to the json (in-class exercise)
+        fs.writeFile("cardStorage.json", JSON.stringify(library, null, 2)); /**look at the documentation again**/
+
+
+        //now lets check if the user would like to write another card
+      })
+    }
+  });
+}

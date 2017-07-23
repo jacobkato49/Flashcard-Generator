@@ -16,7 +16,7 @@ function MyClozeCardProto() {
   };
 }
 
-ClozeCard.prototype = new MyClozeCardProto();
+ClozeCard.prototype.new = new MyClozeCardProto();
 
 /**DEF--> Returns a reference to the Object constructor function that created the instance object.
 Note that the value of this property is a reference to the function itself,
