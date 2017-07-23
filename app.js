@@ -128,8 +128,72 @@ function newCard (){
         fs.writeFile("cardStorage.json", JSON.stringify(library, null, 2)); /**look at the documentation again**/
 
 
-        //now lets check if the user would like to write another card
-      })
+        //creating another card
+        inquirer.prompt([
+          {
+            type: "list",
+            message: "Want to create another card?",
+            choice: ["Yes", "No"],
+            name: "oneMore"
+          }
+
+        //create the promise for the next card
+        ]).then(function(basicCardData){
+          //if yes...
+          if(basicCardData.oneMore === "Yes") {
+            //call the function of creating the card
+            newCard();
+          }else{
+            //now this will return the user to the menu
+            //no new card
+            setTimeout(lookAtMenu, 2000);
+          }
+        });
+
+      });
     }
   });
+}
+
+
+
+//create a function here to get the question this will be returned  later in the quizTime function
+function getQuestion(card){
+  if (card.type === "Basic") {
+    //neew constructor of basic.js
+    drawFlashCard = new FlashCard(card.front, card.back);
+    return drawFlashCard.front;
+
+  }else if(card.type === "Cloze") {
+    drawFlashCard = new FlashCard(card.text, card.cloze)
+    return drawFlashCard.clozeRemoved();
+  }
+}
+
+function quizTime(){
+  if (count<library.length){
+
+    //storing the questions
+    playFlashCard = getQuestion(library[count]);
+
+    inquirer.prompt([
+      {
+        type: "input",
+        message: playFlashCard,
+        name: "question"
+      }
+
+
+    ]).then(function(userAnswer){
+      if(userAnswer.question === library[count].back || userAnswer.question === library[count].cloze){
+        console.log(colors.blue("You are correct!!"));
+
+      //have to add additional things here to make the function work
+      //probably have to use recursion here
+      }
+      console.log(colors.red("Sorry you are wrong. STUDY MORE!!"))
+      count++;
+      quizTime();
+    })
+  }
 }
