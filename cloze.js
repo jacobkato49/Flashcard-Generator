@@ -7,16 +7,15 @@ function ClozeCard (text,cloze){
 }
 
 // Constructor that creates a prototype of ClozeCard to return the question missing cloze
-function MyClozeCardProto() {
-
-  this.clozeRemoved = function () {
-    return `${this.text[0]} ... ${this.text[1]}`;  //<--Might take this out (will test first)
+// Declare your methods directly on the prototype. Also, `new` applies to the constructor 
+// itself. Not methods on the constructor
+ClozeCard.prototype.partial = function() {
+  this.clozeRemoved = function() {
+    return `${this.text[0]} ... ${this.text[1]}`; //<--Might take this out (will test first)
     /**Template literal enclosed by the back-tick `
     allows embedded expressions wrapped with ${}**/
   };
-}
-
-ClozeCard.prototype.new = new MyClozeCardProto();
+};
 
 /**DEF--> Returns a reference to the Object constructor function that created the instance object.
 Note that the value of this property is a reference to the function itself,
@@ -35,4 +34,5 @@ The value is only read-only for primitive values such as 1, true and "test".**/
 // };
 
 //Export
-module.export = ClozeCard;
+// .exports ≠ export
+module.exports = ClozeCard;

@@ -5,4 +5,5 @@ function FlashCard (front, back){ /**pass in parameters of front and back**/
 }
 
 //Now export the constructor function
-module.export = FlashCard;
+// .exports ≠ export
+module.exports = FlashCard;
