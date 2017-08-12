@@ -1,18 +1,19 @@
 //Ask Charlie or Tyler if I could change "var" to "const"
-var inquirer = require("inquirer");
-var colors = require("colors");
-var FlashCard = require("./basic");
-var ClozeCard = require("./cloze");
-var fs = require("fs");
+// Yes you may! For any values that aren't expected to change, use const
+const inquirer = require("inquirer");
+const colors = require("colors");
+const FlashCard = require("./basic");
+const ClozeCard = require("./cloze");
+const fs = require("fs");
 
 //maybe put in a json to store the flashcards
-var library = require("./cardStorage.json");
+const library = require("./cardStorage.json");
 
 
 //Create open variables to be manipulated later in the functions
-var drawFlashCard;
-var playFlashCard;
-var count= 0;
+let drawFlashCard;
+let playFlashCard;
+let count= 0;
 
 
 //Option to start with a new flashcard or look at existing ones
@@ -30,7 +31,7 @@ function lookAtMenu(){
 
   ]).then(function(answer){
     //create a empty variable and use within the switch to do a setTimeout for each switch function
-    var messageWait;
+    let messageWait;
 
     //switch statement for the user choice
     switch(answer.menuOptions){
@@ -91,7 +92,7 @@ function newCard (){
   //now do the promise distinguishing which type of card
   ]).then(function(flashData){
 
-    var cardType = flashData.cardType;
+    let cardType = flashData.cardType;
     //check with console.log
     console.log(flashData);
 
